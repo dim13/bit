@@ -2,10 +2,8 @@ package bit
 
 type Field []byte
 
-const width = 8
-
 func (bf *Field) IsSet(i int) bool {
-	bit, off := i/width, 1<<(uint(i)%width)
+	bit, off := i>>3, 1<<uint(i&7)
 	if len(*bf) <= bit {
 		return false
 	}
@@ -13,7 +11,7 @@ func (bf *Field) IsSet(i int) bool {
 }
 
 func (bf *Field) Set(i int) *Field {
-	bit, off := i/width, 1<<(uint(i)%width)
+	bit, off := i>>3, 1<<uint(i&7)
 	if len(*bf) <= bit {
 		*bf = append(*bf, make([]byte, bit-len(*bf)+1)...)
 	}
@@ -22,7 +20,7 @@ func (bf *Field) Set(i int) *Field {
 }
 
 func (bf *Field) IsClr(i int) bool {
-	bit, off := i/width, 1<<(uint(i)%width)
+	bit, off := i>>3, 1<<uint(i&7)
 	if len(*bf) <= bit {
 		return true
 	}
@@ -30,7 +28,7 @@ func (bf *Field) IsClr(i int) bool {
 }
 
 func (bf *Field) Clr(i int) *Field {
-	bit, off := i/width, 1<<(uint(i)%width)
+	bit, off := i>>3, 1<<uint(i&7)
 	if len(*bf) <= bit {
 		return bf
 	}
