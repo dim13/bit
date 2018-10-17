@@ -1,17 +1,21 @@
+// Package bit implements variable-size bit-fields
 package bit
 
+// Field is a variable bit-field
 type Field []byte
 
-func (bf *Field) IsSet(i int) bool {
-	bit, off := i>>3, 1<<uint(i&7)
+// IsSet checks if bit n is set
+func (bf *Field) IsSet(n int) bool {
+	bit, off := n>>3, 1<<uint(n&7)
 	if len(*bf) <= bit {
 		return false
 	}
 	return (*bf)[bit]&byte(off) != 0
 }
 
-func (bf *Field) Set(i int) *Field {
-	bit, off := i>>3, 1<<uint(i&7)
+// Set bit n
+func (bf *Field) Set(n int) *Field {
+	bit, off := n>>3, 1<<uint(n&7)
 	if len(*bf) <= bit {
 		*bf = append(*bf, make([]byte, bit-len(*bf)+1)...)
 	}
@@ -19,16 +23,18 @@ func (bf *Field) Set(i int) *Field {
 	return bf
 }
 
-func (bf *Field) IsClr(i int) bool {
-	bit, off := i>>3, 1<<uint(i&7)
+// IsClr checks if bit n is set
+func (bf *Field) IsClr(n int) bool {
+	bit, off := n>>3, 1<<uint(n&7)
 	if len(*bf) <= bit {
 		return true
 	}
 	return (*bf)[bit]&byte(off) == 0
 }
 
-func (bf *Field) Clr(i int) *Field {
-	bit, off := i>>3, 1<<uint(i&7)
+// Clr bit n
+func (bf *Field) Clr(n int) *Field {
+	bit, off := n>>3, 1<<uint(n&7)
 	if len(*bf) <= bit {
 		return bf
 	}
