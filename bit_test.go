@@ -8,13 +8,13 @@ func TestBit(t *testing.T) {
 		if bf.IsSet(i) || !bf.IsClr(i) {
 			t.Error("got set, want clear")
 		}
-		bf.Set(i)
-		if bf.IsClr(i) || !bf.IsSet(i) {
-			t.Error("got clear, want set")
-		}
 		bf.Clr(i)
 		if bf.IsSet(i) || !bf.IsClr(i) {
 			t.Error("got set, want clear")
+		}
+		bf.Set(i)
+		if bf.IsClr(i) || !bf.IsSet(i) {
+			t.Error("got clear, want set")
 		}
 	}
 }
