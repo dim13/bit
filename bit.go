@@ -4,40 +4,31 @@ package bit
 // Field is a variable-length bit-field
 type Field []byte
 
-// IsSet checks if bit n is set
-func (bf *Field) IsSet(n int) bool {
-	bit, off := n>>3, byte(1<<uint(n&7))
-	if len(*bf) <= bit {
-		return false
+// Set bit
+func (f *Field) Set(k int) {
+	n, m := k>>3, byte(1<<uint(k&7))
+	if len(*f) <= n {
+		*f = append(*f, make([]byte, n-len(*f)+1)...)
 	}
-	return (*bf)[bit]&off != 0
+	(*f)[n] |= m
 }
 
-// Set bit n
-func (bf *Field) Set(n int) *Field {
-	bit, off := n>>3, byte(1<<uint(n&7))
-	if len(*bf) <= bit {
-		*bf = append(*bf, make([]byte, bit-len(*bf)+1)...)
-	}
-	(*bf)[bit] |= off
-	return bf
+// IsSet checks if bit is set
+func (f *Field) IsSet(k int) bool {
+	n, m := k>>3, byte(1<<uint(k&7))
+	return len(*f) > n && (*f)[n]&m != 0
 }
 
-// IsClear checks if bit n is cleared
-func (bf *Field) IsClear(n int) bool {
-	bit, off := n>>3, byte(1<<uint(n&7))
-	if len(*bf) <= bit {
-		return true
+// Clear bit
+func (f *Field) Clear(k int) {
+	n, m := k>>3, byte(1<<uint(k&7))
+	if len(*f) > n {
+		(*f)[n] &^= m
 	}
-	return (*bf)[bit]&off == 0
 }
 
-// Clear bit n
-func (bf *Field) Clear(n int) *Field {
-	bit, off := n>>3, byte(1<<uint(n&7))
-	if len(*bf) <= bit {
-		return bf
-	}
-	(*bf)[bit] &^= off
-	return bf
+// IsClear checks if bit is cleared
+func (f *Field) IsClear(k int) bool {
+	n, m := k>>3, byte(1<<uint(k&7))
+	return len(*f) <= n || (*f)[n]&m == 0
 }

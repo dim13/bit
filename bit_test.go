@@ -4,17 +4,17 @@ import "testing"
 
 func TestBit(t *testing.T) {
 	bf := new(Field)
-	for i := 0; i < 64; i++ {
-		if bf.IsSet(i) || !bf.IsClear(i) {
-			t.Error("got set, want clear")
+	for k := 0; k < 64; k++ {
+		if bf.IsSet(k) || !bf.IsClear(k) {
+			t.Error("got set, want clear", k)
 		}
-		bf.Clear(i)
-		if bf.IsSet(i) || !bf.IsClear(i) {
-			t.Error("got set, want clear")
+		bf.Clear(k)
+		if bf.IsSet(k) || !bf.IsClear(k) {
+			t.Error("got set, want clear", k)
 		}
-		bf.Set(i)
-		if bf.IsClear(i) || !bf.IsSet(i) {
-			t.Error("got clear, want set")
+		bf.Set(k)
+		if bf.IsClear(k) || !bf.IsSet(k) {
+			t.Error("got clear, want set", k)
 		}
 	}
 }
