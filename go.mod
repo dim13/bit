@@ -1,3 +1,3 @@
-module dim13.org/bit
+module github.com/dim13/bit
 
 go 1.17
