@@ -1,4 +1,4 @@
 # variable-lenght bitfield
 
-[![GoDoc](https://godoc.org/github.com/dim13/bit?status.svg)](https://godoc.org/github.com/dim13/bit)
-[![Build](https://github.com/dim13/bit/workflows/build/badge.svg)](https://github.com/dim13/bit/actions)
+[![Go Reference](https://pkg.go.dev/badge/github.com/dim13/bit.svg)](https://pkg.go.dev/github.com/dim13/bit)
+[![Go](https://github.com/dim13/bit/actions/workflows/go.yml/badge.svg)](https://github.com/dim13/bit/actions/workflows/go.yml)

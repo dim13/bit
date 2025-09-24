@@ -32,3 +32,12 @@ func (f *Field) IsClear(k int) bool {
 	n, m := k>>3, byte(1<<uint(k&7))
 	return len(*f) <= n || (*f)[n]&m == 0
 }
+
+func (f *Field) Shrink() {
+	for i := len(*f); i > 0; i-- {
+		if (*f)[i-1] != 0 {
+			break
+		}
+		*f = (*f)[:i-1]
+	}
+}

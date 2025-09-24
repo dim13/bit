@@ -18,3 +18,15 @@ func TestBit(t *testing.T) {
 		}
 	}
 }
+
+func TestShrink(t *testing.T) {
+	bf := new(Field)
+	bf.Set(0)
+	bf.Set(32)
+	bf.Set(64)
+	t.Log(bf)
+	bf.Clear(64)
+	bf.Shrink()
+	bf.Set(128)
+	t.Log(bf)
+}
